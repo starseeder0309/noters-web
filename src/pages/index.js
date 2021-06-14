@@ -8,6 +8,7 @@ import MyNotesPage from './myNotes';
 import MyFavoritesPage from './myFavorites';
 import NotePage from './note';
 import SignUpPage from './signUp';
+import SignInPage from './signIn';
 
 const Pages = () => {
   return (
@@ -18,6 +19,7 @@ const Pages = () => {
         <Route path="/my-favorites" component={MyFavoritesPage} />
         <Route path="/note/:id" component={NotePage} />
         <Route path="/sign-up" component={SignUpPage} />
+        <Route path="/sign-in" component={SignInPage} />
       </BasicLayout>
     </Router>
   );

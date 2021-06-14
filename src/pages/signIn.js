@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useMutation, useApolloClient, gql } from '@apollo/client';
 
 import UserForm from '../components/UserForm';
 
-const SIGN_UP_USER = gql`
-  mutation signUp($username: String!, $email: String!, $password: String!) {
-    signUp(username: $username, email: $email, password: $password)
+const SIGN_IN_USER = gql`
+  mutation signIn($email: String, $password: String!) {
+    signIn(email: $email, password: $password)
   }
 `;
 
-const SignUpPage = (props) => {
+const SignInPage = (props) => {
   const client = useApolloClient();
 
-  const [signUp, { loading, error }] = useMutation(SIGN_UP_USER, {
+  const [signIn, { loading, error }] = useMutation(SIGN_IN_USER, {
     onCompleted: (data) => {
-      localStorage.setItem('token', data.signUp);
+      localStorage.setItem('token', data.signIn);
 
       client.writeData({
         data: { isSignedIn: true },
@@ -25,12 +25,12 @@ const SignUpPage = (props) => {
   });
 
   useEffect(() => {
-    document.title = '서비스 가입 | 노터스';
+    document.title = '서비스 접속 | 노터스';
   });
 
   return (
     <React.Fragment>
-      <UserForm action={signUp} formType="signUp" />
+      <UserForm action={signIn} formType="signIn" />
 
       {loading && <p>데이터를 불러오는 중입니다...</p>}
 
@@ -39,4 +39,4 @@ const SignUpPage = (props) => {
   );
 };
 
-export default SignUpPage;
+export default SignInPage;
