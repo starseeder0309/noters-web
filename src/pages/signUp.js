@@ -35,6 +35,7 @@ const SignUpPage = (props) => {
   const [signUp, { loading, error }] = useMutation(SIGN_UP_USER, {
     onCompleted: (data) => {
       localStorage.setItem('token', data.signUp);
+      props.history.push('/');
     },
   });
 
