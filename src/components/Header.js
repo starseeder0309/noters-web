@@ -1,7 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
 import styled from 'styled-components';
+
+import LinkButton from './LinkButton';
 
 import logo from '../img/logo.svg';
 
@@ -34,7 +36,7 @@ const IS_SIGNED_IN = gql`
 `;
 
 const Header = (props) => {
-  const { data } = useQuery(IS_SIGNED_IN);
+  const { data, client } = useQuery(IS_SIGNED_IN);
 
   return (
     <Wrapper>
@@ -43,7 +45,18 @@ const Header = (props) => {
 
       <UserState>
         {data.isSignedIn ? (
-          <p>접속 해제</p>
+          <LinkButton
+            onClick={() => {
+              localStorage.removeItem('token');
+
+              client.resetStore();
+              client.writeData({ data: { isSignedIn: false } });
+
+              props.history.push('/');
+            }}
+          >
+            접속 해제
+          </LinkButton>
         ) : (
           <p>
             <Link to="/sign-in">접속</Link> 또는 <Link to="/sign-up">가입</Link>
@@ -54,4 +67,4 @@ const Header = (props) => {
   );
 };
 
-export default Header;
+export default withRouter(Header);
