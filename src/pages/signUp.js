@@ -31,10 +31,17 @@ const SIGN_UP_USER = gql`
 `;
 
 const SignUpPage = (props) => {
+  const client = useApolloClient();
+
   const [values, setValues] = useState();
   const [signUp, { loading, error }] = useMutation(SIGN_UP_USER, {
     onCompleted: (data) => {
       localStorage.setItem('token', data.signUp);
+
+      client.writeData({
+        data: { isSignedIn: true },
+      });
+
       props.history.push('/');
     },
   });
