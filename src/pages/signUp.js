@@ -1,4 +1,5 @@
-import React, { useEffectm, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useMutation, useApolloClient, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import Button from '../components/Button';
@@ -23,8 +24,19 @@ const Form = styled.form`
   }
 `;
 
+const SIGN_UP_USER = gql`
+  mutation signUp($username: String!, $email: String!, $password: String!) {
+    signUp(username: $username, email: $email, password: $password)
+  }
+`;
+
 const SignUpPage = (props) => {
   const [values, setValues] = useState();
+  const [signUp, { loading, error }] = useMutation(SIGN_UP_USER, {
+    onCompleted: (data) => {
+      localStorage.setItem('token', data.signUp);
+    },
+  });
 
   const onChange = (event) => {
     setValues({
@@ -43,7 +55,11 @@ const SignUpPage = (props) => {
       <Form
         onSubmit={(event) => {
           event.preventDefault();
-          console.log(values);
+          signUp({
+            variables: {
+              ...values,
+            },
+          });
         }}
       >
         <label htmlFor="username">사용자 이름:</label>
