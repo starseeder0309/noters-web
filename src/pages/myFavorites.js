@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-const MyFavorites = () => {
+const MyFavoritesPage = () => {
   useEffect(() => {
     // 문서 제목을 갱신한다.
     document.title = '나의 즐겨찾기 | 노터스';
@@ -14,4 +14,4 @@ const MyFavorites = () => {
   );
 };
 
-export default MyFavorites;
+export default MyFavoritesPage;

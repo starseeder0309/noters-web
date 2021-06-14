@@ -3,17 +3,19 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import BasicLayout from '../layouts/BasicLayout';
 
-import Home from './home';
-import MyNotes from './myNotes';
-import MyFavorites from './myFavorites';
+import HomePage from './home';
+import MyNotesPage from './myNotes';
+import MyFavoritesPage from './myFavorites';
+import NotePage from './note';
 
 const Pages = () => {
   return (
     <Router>
       <BasicLayout>
-        <Route exact path="/" component={Home} />
-        <Route path="/my-notes" component={MyNotes} />
-        <Route path="/my-favorites" component={MyFavorites} />
+        <Route exact path="/" component={HomePage} />
+        <Route path="/my-notes" component={MyNotesPage} />
+        <Route path="/my-favorites" component={MyFavoritesPage} />
+        <Route path="/note/:id" component={NotePage} />
       </BasicLayout>
     </Router>
   );

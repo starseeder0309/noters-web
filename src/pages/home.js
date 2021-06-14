@@ -23,7 +23,7 @@ const GET_NOTES = gql`
   }
 `;
 
-const Home = () => {
+const HomePage = () => {
   const { data, loading, error, fetchMore } = useQuery(GET_NOTES);
 
   if (loading) {
@@ -37,4 +37,4 @@ const Home = () => {
   return <NoteFeed notes={data.noteFeed.notes} />;
 };
 
-export default Home;
+export default HomePage;

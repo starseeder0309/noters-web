@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-const MyNotes = () => {
+const MyNotesPage = () => {
   useEffect(() => {
     // 문서 제목을 갱신한다.
     document.title = '나의 노트 | 노터스';
@@ -14,4 +14,4 @@ const MyNotes = () => {
   );
 };
 
-export default MyNotes;
+export default MyNotesPage;
