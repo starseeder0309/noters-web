@@ -3,26 +3,9 @@ import { useMutation, gql } from '@apollo/client';
 
 import NoteForm from '../components/NoteForm';
 
-import { GET_NOTES } from '../gql/query';
+import { GET_NOTES, GET_MY_NOTES } from '../gql/query';
 
-const CREATE_NOTE = gql`
-  mutation createNote($content: String!) {
-    createNote(content: $content) {
-      id
-      content
-      createdAt
-      favoriteCount
-      favoritedBy {
-        id
-        username
-      }
-      author {
-        id
-        username
-      }
-    }
-  }
-`;
+import { CREATE_NOTE } from '../gql/mutation';
 
 const CreateNotePage = (props) => {
   useEffect(() => {
@@ -30,7 +13,7 @@ const CreateNotePage = (props) => {
   });
 
   const [data, { loading, error }] = useMutation(CREATE_NOTE, {
-    refetchQueries: [{ query: GET_NOTES }],
+    refetchQueries: [{ query: GET_NOTES }, { query: GET_MY_NOTES }],
 
     onCompleted: (data) => {
       props.history.push(`/note/${data.createNote.id}`);

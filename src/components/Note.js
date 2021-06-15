@@ -1,7 +1,12 @@
 import React from 'react';
+import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 import { format } from 'date-fns';
+
+import NoteUser from './NoteUser';
+
+import { IS_SIGNED_IN } from '../gql/query';
 
 const StyledNote = styled.article`
   max-width: 800px;
@@ -24,6 +29,16 @@ const MetaInfo = styled.div`
 `;
 
 const Note = ({ note }) => {
+  const { data, loading, error } = useQuery(IS_SIGNED_IN);
+
+  if (loading) {
+    return <p>데이터를 불러오는 중입니다...</p>;
+  }
+
+  if (error) {
+    return <p>오류가 발생했습니다!</p>;
+  }
+
   return (
     <StyledNote>
       <MetaData>
@@ -40,9 +55,13 @@ const Note = ({ note }) => {
           {format(note.createdAt, 'MMM Do YYYY')}
         </MetaInfo>
 
-        <UserActions>
-          <em>즐겨찾기 수:</em> {note.favoriteCount}
-        </UserActions>
+        {data.isSignedIn ? (
+          <UserActions>
+            <NoteUser note={note} />
+          </UserActions>
+        ) : (
+          <UserActions>즐겨찾기 수: {note.favoriteCount}</UserActions>
+        )}
       </MetaData>
 
       <ReactMarkdown source={note.content} />

@@ -9,6 +9,7 @@ import MyNotesPage from './myNotes';
 import MyFavoritesPage from './myFavorites';
 import NotePage from './note';
 import CreateNotePage from './createNote';
+import UpdateNotePage from './updateNote';
 import SignUpPage from './signUp';
 import SignInPage from './signIn';
 
@@ -53,6 +54,7 @@ const Pages = () => {
         <PrivateRoute path="/my-favorites" component={MyFavoritesPage} />
         <Route path="/note/:id" component={NotePage} />
         <PrivateRoute path="/create-note" component={CreateNotePage} />
+        <PrivateRoute path="/update-note/:id" component={UpdateNotePage} />
         <Route path="/sign-up" component={SignUpPage} />
         <Route path="/sign-in" component={SignInPage} />
       </BasicLayout>
