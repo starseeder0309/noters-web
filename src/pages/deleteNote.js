@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router';
 import { useMutation } from '@apollo/client';
 
@@ -8,10 +8,6 @@ import { GET_MY_NOTES, GET_NOTES } from '../gql/query';
 import { DELETE_NOTE } from '../gql/mutation';
 
 const DeleteNotePage = (props) => {
-  useEffect(() => {
-    document.title = '노트 삭제 | 노터스';
-  });
-
   const [deleteNote] = useMutation(DELETE_NOTE, {
     variables: {
       id: props.noteId,
