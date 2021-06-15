@@ -12,11 +12,7 @@ import CreateNotePage from './createNote';
 import SignUpPage from './signUp';
 import SignInPage from './signIn';
 
-const IS_SIGNED_IN = gql`
-  {
-    isSignedIn @client
-  }
-`;
+import { IS_SIGNED_IN } from '../gql/query';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { data, loading, error } = useQuery(IS_SIGNED_IN);

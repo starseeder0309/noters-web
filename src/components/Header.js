@@ -7,6 +7,8 @@ import LinkButton from './LinkButton';
 
 import logo from '../img/logo.svg';
 
+import { IS_SIGNED_IN } from '../gql/query';
+
 const Wrapper = styled.header`
   width: 100%;
   height: 64px;
@@ -27,12 +29,6 @@ const LogoText = styled.h1`
 
 const UserState = styled.div`
   margin-left: auto;
-`;
-
-const IS_SIGNED_IN = gql`
-  {
-    isSignedIn @client
-  }
 `;
 
 const Header = (props) => {

@@ -3,12 +3,49 @@ import { useMutation, gql } from '@apollo/client';
 
 import NoteForm from '../components/NoteForm';
 
+import { GET_NOTES } from '../gql/query';
+
+const CREATE_NOTE = gql`
+  mutation createNote($content: String!) {
+    createNote(content: $content) {
+      id
+      content
+      createdAt
+      favoriteCount
+      favoritedBy {
+        id
+        username
+      }
+      author {
+        id
+        username
+      }
+    }
+  }
+`;
+
 const CreateNotePage = (props) => {
   useEffect(() => {
     document.title = '노트 생성 | 노터스';
   });
 
-  return <NoteForm />;
+  const [data, { loading, error }] = useMutation(CREATE_NOTE, {
+    refetchQueries: [{ query: GET_NOTES }],
+
+    onCompleted: (data) => {
+      props.history.push(`/note/${data.createNote.id}`);
+    },
+  });
+
+  return (
+    <React.Fragment>
+      {loading && <p>데이터를 불러오는 중입니다...</p>}
+
+      {error && <p>오류가 발생했습니다!</p>}
+
+      <NoteForm action={data} />
+    </React.Fragment>
+  );
 };
 
 export default CreateNotePage;

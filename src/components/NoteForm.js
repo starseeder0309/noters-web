@@ -33,7 +33,7 @@ const NoteForm = (props) => {
           e.preventDefault();
           props.action({
             variables: {
-              ...values,
+              ...value,
             },
           });
         }}

@@ -54,6 +54,9 @@ const Sider = () => {
         <li>
           <Link to="/my-favorites">나의 즐겨찾기</Link>
         </li>
+        <li>
+          <Link to="/create-note">노트 생성</Link>
+        </li>
       </NavigationList>
     </Wrapper>
   );
