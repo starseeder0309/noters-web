@@ -13,7 +13,7 @@ import GlobalStyle from './styles/GlobalStyle';
 import Pages from './pages';
 
 const uri = process.env.API_URI;
-const httplink = createHttpLink({ uri });
+const httpLink = createHttpLink({ uri });
 const authLink = setContext((_, { headers }) => {
   return {
     headers: {
@@ -26,7 +26,7 @@ const authLink = setContext((_, { headers }) => {
 const cache = new InMemoryCache();
 
 const client = new ApolloClient({
-  link: authLink.concat(httplink),
+  link: authLink.concat(httpLink),
   cache,
   resolvers: {},
   connectToDevTools: true,
