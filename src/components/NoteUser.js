@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
+import DeleteNotePage from '../pages/deleteNote';
+
 import { GET_ME } from '../gql/query';
 
 const NoteUser = (props) => {
@@ -20,6 +22,8 @@ const NoteUser = (props) => {
       {data.me.id === props.note.author.id && (
         <React.Fragment>
           <Link to={`/update-note/${props.note.id}`}>노트 수정</Link>
+          <br />
+          <DeleteNotePage noteId={props.note.id} />
         </React.Fragment>
       )}
       <br />
